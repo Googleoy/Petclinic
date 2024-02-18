@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    tools{
+        jdk 'jdk11'
+        maven 'maven3'
+    }
+    
+    stages {
+        stage('Git Checkout') {
+            steps {
+               git branch: 'main', url: 'https://github.com/Googleoy/Petclinic.git'
+            }
+        }
+        stage('Mvn Compile') {
+            steps {
+               sh "mvn clean compile"
+            }
+        }
+        stage('Mvn package') {
+            steps {
+               sh "mvn clean package"
+            }
+        }
+         stage('Mvn Build') {
+            steps {
+               sh "mvn clean package -DskipTests=true"
+            }
+        }
+         stage('Mvn Deploy') {
+            steps {
+               sh "sudo cp target/*petclinic.war /opt/apache-tomcat-9.0.65/webapps"
+            }
+        }
+    }
+}
