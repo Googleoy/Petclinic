@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-               git branch: 'main', url: 'https://github.com/Googleoy/Petclinic.git'
+               git branch: 'feature1', url: 'https://github.com/Googleoy/Petclinic.git'
             }
         }
         stage('Mvn Compile') {
